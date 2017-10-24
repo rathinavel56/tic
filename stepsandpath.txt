@@ -1,0 +1,9 @@
+npm install npm@latest -g
+
+npm install -g @angular/cli
+
+C:\ProgramData\Oracle\Java\javapath;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\xampp\php;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\Users\Lenovo\AppData\Roaming\npm\node_modules\@angular\cli\bin;
+
+npm install
+
+ng serve
