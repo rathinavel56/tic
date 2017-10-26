@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
     'use strict';
     angular
         .module('app')
@@ -8,15 +8,15 @@
 
     function AchiController($scope) {
         var model = this,
-			cir1 = $('#circle1'),
-			cir2 = $('#circle2'),
-			cir3 = $('#circle3'),
-			cir4 = $('#circle4'),
-			cir5 = $('#circle5'),
-			cir6 = $('#circle6'),
-			cir7 = $('#circle7'),
-			cir8 = $('#circle8'),
-			cir9 = $('#circle9'),
+			cir1 = angular.element(document.getElementById("circle1")),
+			cir2 = angular.element(document.getElementById("circle2")),
+			cir3 = angular.element(document.getElementById("circle3")),
+			cir4 = angular.element(document.getElementById("circle4")),
+			cir5 = angular.element(document.getElementById("circle5")),
+			cir6 = angular.element(document.getElementById("circle6")),
+			cir7 = angular.element(document.getElementById("circle7")),
+			cir8 = angular.element(document.getElementById("circle8")),
+			cir9 = angular.element(document.getElementById("circle9")),
 			playValid        = false,
 			classUser        = 'user',
 			classComputer    = 'computer',
@@ -27,49 +27,40 @@
 			msgSuccess       = "Congratulations, you own the match",
 			msgFail          = "Sorry You lost the match!",
 			win = false;
-		 /**
-         * @ngdoc method
-         * @name init
-         * @methodOf achi.controller:AchiController
-         * @description
-         * This method will initialze the click function.
-         *
-         **/
-        model.init = function () {
-			$('.achi').on('click', function() {
-				var playValid = model.validatePlay(this);
+		$scope.resetBoard = function() {
+			model.clearAchi();
+		};
+		$scope.circleSelect = function(event) {
+			var clickedCircle = angular.element(document.getElementById(event.target.id)),
+				playValid = model.validatePlay(clickedCircle);
 				if (playValid) {
-					$(this).removeClass(classEmptyCircle)
-							.addClass(classPlayed)
-							.addClass(classUser);
+					clickedCircle.removeClass(classEmptyCircle)
+								.addClass(classPlayed)
+								.addClass(classUser);
 					model.checkDrawMatch();
 					model.checkAchiWin();
 					model.computerplay();
 				} else {
 					swal(msgPlayed);
 				}
-			});
-        };
-        model.init();
-		$scope.resetBoard = function() {
-			model.clearAchi();
 		};
 		model.validatePlay = function(circleplayed) {
 			var playValid = false;
-			if ($(circleplayed).hasClass(classEmptyCircle)) {
+			if (circleplayed.hasClass(classEmptyCircle)) {
 				return playValid = true;
 			} else {
 				return playValid = false;
 			}
 		};
 		model.checkDrawMatch = function() {
-			if (!($('.achi').hasClass(classEmptyCircle))) {
+			if (!(angular.element(document.getElementsByClassName("achi")).hasClass(classEmptyCircle))) {
 				swal(msgTie);
 				model.clearAchi();
 			}
 		};
 		model.clearAchi = function() {
-			$('.achi').removeClass(classPlayed)
+			angular.element(document.getElementsByClassName("achi"))
+					.removeClass(classPlayed)
 					.removeClass(classComputer)
 					.removeClass(classUser)
 					.addClass(classEmptyCircle);
@@ -216,7 +207,7 @@
 		model.Orandomplay = function() {
 			for (var i = 0; i < 10; i++) {
 				var randomNumber = Math.floor((Math.random() * 9) + 1),
-					randomcircle = $('#circle' + randomNumber),
+					randomcircle = angular.element(document.getElementById("circle" + randomNumber));
 					playValid = model.validatePlay(randomcircle);
 				if (playValid) {
 					randomcircle.removeClass(classEmptyCircle)
